@@ -140,7 +140,7 @@ export function PlacesSlants() {
       <div className="v2-paper">
         <div className="v2-wrap py-14 md:py-20 grid gap-8 lg:grid-cols-12 items-end">
           <div className="lg:col-span-5">
-            <p className="v2-label">05 · Places</p>
+            <p className="v2-label">04 · Places</p>
             <LineReveal
               id="places-h"
               className="v2-d2 mt-5"
@@ -411,7 +411,7 @@ export function Dossier() {
     >
       <div className="v2-wrap grid gap-12 lg:grid-cols-12 items-center">
         <div className="lg:col-span-4">
-          <p className="v2-label">06 · The dossier</p>
+          <p className="v2-label">05 · The dossier</p>
           <LineReveal
             id="dossier-h"
             className="v2-d2 mt-5"

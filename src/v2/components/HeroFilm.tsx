@@ -25,7 +25,6 @@ function phaseAt(time: number): FilmPhase {
 export const chapters = [
   { id: "ch-house", label: "The house" },
   { id: "ch-day", label: "A day" },
-  { id: "ch-land", label: "The land" },
   { id: "ch-plan", label: "The plan" },
   { id: "ch-places", label: "Places" },
   { id: "ch-dossier", label: "The dossier" },
