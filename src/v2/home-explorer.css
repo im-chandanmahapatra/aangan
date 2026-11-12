@@ -1,0 +1,215 @@
+/* ——— Home explorer ———
+   Chrome for the interactive house: the viewport, the doorway markers the
+   3D scene positions, the "where you are" card, the spec list and the
+   floor-plan box. Loaded with the V2 stylesheet. */
+
+/* Allow vertical page scroll on mobile over any 3D canvas */
+.v2-model--home canvas,
+.v2-model canvas {
+  touch-action: pan-y !important;
+}
+
+.v2-model--home {
+  aspect-ratio: 16 / 11;
+  min-height: 19rem;
+}
+@media (min-width: 1024px) {
+  .v2-model--home {
+    aspect-ratio: 16 / 10;
+    min-height: 31rem;
+  }
+}
+
+/* Doorway markers — positioned each frame by the scene, in percentages. */
+.v2-hot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.7rem 0.3rem 0.45rem;
+  border: 1px solid rgb(243 237 226 / 0.45);
+  border-radius: 99px;
+  background: rgb(18 28 22 / 0.55);
+  backdrop-filter: blur(8px);
+  color: var(--on-dark);
+  font-family: var(--f-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 260ms var(--ease),
+    background-color 260ms var(--ease),
+    border-color 260ms var(--ease);
+}
+.v2-hot:hover,
+.v2-hot:focus-visible {
+  background: var(--ivory);
+  color: var(--forest);
+  border-color: var(--ivory);
+}
+.v2-hot__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 99px;
+  background: var(--brass);
+  box-shadow: 0 0 0 0 rgb(184 149 90 / 0.65);
+  animation: v2-hot-pulse 2.6s var(--ease) infinite;
+}
+.v2-hot:hover .v2-hot__dot {
+  background: var(--terracotta);
+}
+@keyframes v2-hot-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(184 149 90 / 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 0.6rem rgb(184 149 90 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(184 149 90 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2-hot__dot {
+    animation: none;
+  }
+}
+
+/* Where you are standing. */
+.v2-roomcard {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  max-width: 15rem;
+  padding: 0.85rem 1rem 0.95rem;
+  border: 1px solid rgb(243 237 226 / 0.2);
+  border-radius: 1px;
+  background: rgb(18 28 22 / 0.62);
+  backdrop-filter: blur(10px);
+  color: var(--on-dark);
+}
+@media (min-width: 640px) {
+  .v2-roomcard {
+    left: 1rem;
+    top: 1rem;
+  }
+}
+.v2-roomcard__name {
+  font-family: var(--f-display);
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+/* Specification list. */
+.v2-specs {
+  display: grid;
+  gap: 0;
+}
+.v2-specs > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.v2-specs > div:first-child {
+  border-top: 1px solid var(--line);
+}
+.v2-specs dt {
+  font-family: var(--f-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.v2-specs dd {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+/* Floor-plan panel. */
+.v2-planbox {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: var(--parchment);
+}
+@media (min-width: 768px) {
+  .v2-planbox {
+    padding: 2rem 2.5rem;
+  }
+}
+.v2-planbox svg {
+  max-height: 70vh;
+}
+
+/* Horizontal strips that scroll without showing a bar. */
+.v2-noscroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.v2-noscroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ——— Threshold (the way in) ——— */
+.v2-threshold {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: #0c130f;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.v2-threshold__scene {
+  position: absolute;
+  inset: 0;
+}
+.v2-threshold__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 1.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--on-dark);
+}
+.v2-threshold__skip {
+  position: absolute;
+  z-index: 3;
+  right: 1rem;
+  top: 1rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgb(243 237 226 / 0.3);
+  border-radius: 1px;
+  background: transparent;
+  color: var(--on-dark-2);
+  font-family: var(--f-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color 250ms var(--ease),
+    border-color 250ms var(--ease);
+}
+.v2-threshold__skip:hover {
+  color: var(--on-dark);
+  border-color: var(--on-dark);
+}
+@media (min-width: 768px) {
+  .v2-threshold__skip {
+    right: 1.75rem;
+    top: 1.75rem;
+  }
+}

@@ -1,0 +1,406 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * AANGAN — Design System
+ * Monochrome discipline: ivory + ink. One accent (Laterite) ≤ 3 uses sitewide.
+ * Brass permitted only on a single moment per page, never as a system element.
+ * Type: Instrument Serif (display) + Inter Tight (body).
+ * (Foundry choices GT Sectra + Söhne are commercial-only; these are the
+ * closest free equivalents that avoid the AI-default Fraunces + Inter tell.)
+ */
+
+@theme inline {
+  --font-display: "Instrument Serif", "GT Sectra", ui-serif, Georgia, serif;
+  --font-sans: "Inter Tight", "Söhne", ui-sans-serif, system-ui, sans-serif;
+  --font-devanagari: "Noto Serif Devanagari", "Instrument Serif", serif;
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-linen: var(--linen);
+  --color-sand: var(--sand);
+  --color-charcoal: var(--foreground);
+  --color-muted: var(--sand);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-ink: var(--foreground);
+  --color-ivory: var(--background);
+  /* Signal accent — Laterite red. Reserved: ≤ 3 uses sitewide. */
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--background);
+  /* Brass — retained token, permitted only on ONE moment per page (see docs). */
+  --color-brass: var(--brass);
+  --color-brass-foreground: var(--brass-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--foreground);
+  --color-primary-foreground: var(--background);
+  --color-secondary: var(--linen);
+  --color-secondary-foreground: var(--foreground);
+  --color-accent: var(--signal);
+  --color-accent-foreground: var(--background);
+  --color-destructive: oklch(0.55 0.18 27);
+  --color-destructive-foreground: var(--background);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--signal);
+  --color-ring-offset-background: var(--background);
+
+  --color-chart-1: var(--signal);
+  --color-chart-2: var(--foreground);
+  --color-chart-3: var(--muted-foreground);
+  --color-chart-4: var(--sand);
+  --color-chart-5: var(--brass);
+
+  --color-sidebar: var(--linen);
+  --color-sidebar-foreground: var(--foreground);
+  --color-sidebar-primary: var(--foreground);
+  --color-sidebar-primary-foreground: var(--background);
+  --color-sidebar-accent: var(--sand);
+  --color-sidebar-accent-foreground: var(--foreground);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--signal);
+
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  /* #FAF7F2 Warm Ivory */
+  --background: oklch(0.972 0.008 80);
+  /* #1A1613 Deep Ink (darker than prior charcoal, cleaner mono) */
+  --foreground: oklch(0.198 0.010 55);
+  /* #F5F1EB Natural Linen — surface variant only */
+  --linen: oklch(0.951 0.010 78);
+  /* #EFE8DF Soft Sand — surface variant only */
+  --sand: oklch(0.923 0.014 78);
+  /* Warm ink-gray for secondary text; AA against ivory */
+  --muted-foreground: oklch(0.402 0.014 60);
+  /* Laterite red — the single cultural accent */
+  --signal: oklch(0.492 0.152 38);
+  /* Brass retained, restricted use */
+  --brass: oklch(0.702 0.088 78);
+  --brass-foreground: oklch(0.198 0.010 55);
+
+  --card: oklch(0.972 0.008 80);
+  --border: oklch(0.198 0.010 55 / 0.14);
+}
+
+.dark {
+  --background: oklch(0.198 0.010 55);
+  --foreground: oklch(0.972 0.008 80);
+  --linen: oklch(0.24 0.010 55);
+  --sand: oklch(0.28 0.012 55);
+  --muted-foreground: oklch(0.72 0.014 66);
+  --card: oklch(0.24 0.010 55);
+  --border: oklch(0.972 0.008 80 / 0.14);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-background);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+  :focus-visible {
+    outline: 1.5px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+}
+
+/* True small-caps eyebrow (font-variant, not faked letter-spacing). */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp", "c2sc";
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+@utility rule {
+  height: 1px;
+  background: var(--color-foreground);
+  opacity: 0.14;
+}
+
+/* Pull-quote with hung punctuation — italic Instrument Serif as voice device. */
+@utility pullquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  hanging-punctuation: first last;
+  text-indent: -0.42em;
+}
+
+/* Devanagari companion mark — sits next to Latin wordmark. */
+@utility devanagari {
+  font-family: var(--font-devanagari);
+  font-weight: 400;
+  font-feature-settings: normal;
+  letter-spacing: 0;
+}
+
+/* Editorial drop-cap for a manifesto's opening paragraph. */
+@utility dropcap {
+  &::first-letter {
+    font-family: var(--font-display);
+    font-size: 5.4em;
+    line-height: 0.86;
+    float: left;
+    padding: 0.08em 0.14em 0 0;
+    color: var(--color-foreground);
+    font-feature-settings: "onum";
+  }
+}
+
+/* Folio numeral — small roman for section indexing. */
+@utility folio {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "tnum", "smcp";
+  color: var(--color-muted-foreground);
+}
+
+/* Tabular figures utility for numeric meta (sqft, year). */
+@utility tnum {
+  font-feature-settings: "tnum", "lnum";
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Reveal-on-scroll — driven by IntersectionObserver adding [data-in-view] */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 900ms var(--ease-editorial),
+    transform 900ms var(--ease-editorial);
+  will-change: opacity, transform;
+  &[data-in-view="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Word/line reveal — parent (e.g. h1) sets data-in-view. HERO ONLY. */
+@utility reveal-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  & > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 1100ms var(--ease-editorial);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+[data-in-view="true"] .reveal-word > span,
+.reveal-word[data-in-view="true"] > span {
+  transform: none;
+}
+
+/* Ken Burns — glacial. 90s, 1.025 scale delta. Reads as stillness, not video. */
+@keyframes kenburns {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.025) translate3d(-0.5%, -0.25%, 0); }
+}
+@utility kenburns {
+  animation: kenburns 90s var(--ease-editorial) forwards;
+}
+
+/* Marquee for material strip */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility marquee {
+  animation: marquee 80s linear infinite;
+}
+
+/* Underline that grows from center */
+@utility nav-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    height: 1px;
+    width: 0;
+    background: currentColor;
+    transition: width 500ms var(--ease-editorial), left 500ms var(--ease-editorial);
+  }
+  &:hover::after,
+  &[data-active="true"]::after {
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* Draw-in checkmark */
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+@utility check-draw {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawCheck 700ms var(--ease-editorial) forwards;
+}
+
+/* Route-transition curtain. Ink panel wipes up-then-out. */
+@keyframes curtain-in {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes curtain-out {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+.curtain-in  { animation: curtain-in 460ms var(--ease-editorial) forwards; }
+.curtain-out { animation: curtain-out 620ms var(--ease-editorial) forwards; }
+
+/* Custom cursor for gallery/property imagery. */
+.cursor-view {
+  position: fixed;
+  top: 0; left: 0;
+  width: 84px; height: 84px;
+  border-radius: 999px;
+  background: var(--color-foreground);
+  color: var(--color-background);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  font-variant-caps: all-small-caps;
+  text-transform: none;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition:
+    opacity 260ms var(--ease-editorial),
+    transform 320ms var(--ease-editorial);
+  will-change: transform, opacity;
+}
+.cursor-view[data-active="true"] {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-view { display: none; }
+}
+
+/* Chapter-index gutter — sticky rail. */
+.chapter-rail {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  mix-blend-mode: normal;
+  pointer-events: auto;
+}
+@media (min-width: 1024px) {
+  .chapter-rail { display: flex; }
+}
+.chapter-rail a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  font-variant-caps: all-small-caps;
+  transition: color 500ms var(--ease-editorial);
+  text-decoration: none;
+}
+.chapter-rail a .num { font-feature-settings: "tnum"; opacity: 0.7; }
+.chapter-rail a .dot {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: currentColor; opacity: 0.35;
+  transition: background 400ms var(--ease-editorial), opacity 400ms var(--ease-editorial), transform 400ms var(--ease-editorial);
+}
+.chapter-rail a .name {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width 500ms var(--ease-editorial), opacity 400ms var(--ease-editorial);
+}
+.chapter-rail a:hover { color: var(--color-foreground); }
+.chapter-rail a:hover .name { max-width: 200px; opacity: 1; }
+.chapter-rail a[data-active="true"] {
+  color: var(--color-foreground);
+}
+.chapter-rail a[data-active="true"] .dot {
+  background: var(--color-signal);
+  opacity: 1;
+  transform: scale(1.4);
+}
+.chapter-rail a[data-active="true"] .name {
+  max-width: 240px;
+  opacity: 1;
+}
+
+/* Hero over dark image — invert rail. */
+.chapter-rail[data-over-hero="true"] a { color: rgba(250,247,242,0.55); }
+.chapter-rail[data-over-hero="true"] a[data-active="true"] { color: rgba(250,247,242,0.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  [class*="reveal"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .cursor-view { display: none !important; }
+}

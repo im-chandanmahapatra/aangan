@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="aangan-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#18251d" />
+      <stop offset="100%" stop-color="#0e1611" />
+    </linearGradient>
+    <linearGradient id="aangan-brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5e6c8" />
+      <stop offset="55%" stop-color="#d2ae6d" />
+      <stop offset="100%" stop-color="#a88446" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#aangan-bg)" />
+  <rect
+    x="1.25"
+    y="1.25"
+    width="29.5"
+    height="29.5"
+    rx="5.75"
+    fill="none"
+    stroke="url(#aangan-brass)"
+    stroke-opacity="0.32"
+    stroke-width="0.75"
+  />
+  <!-- Outer chamfered pavilion enclosure with south threshold opening -->
+  <path
+    d="M12.5 26.5H9.5L5.5 22.5V9.5L9.5 5.5H22.5L26.5 9.5V22.5L22.5 26.5H19.5"
+    fill="none"
+    stroke="url(#aangan-brass)"
+    stroke-width="1.6"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+  />
+  <!-- Inner sanctuary gable & courtyard threshold -->
+  <path
+    d="M12.5 22.5H9.5V11.8L16 8.5L22.5 11.8V22.5H19.5"
+    fill="none"
+    stroke="#f3ede2"
+    stroke-opacity="0.88"
+    stroke-width="1.15"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+  />
+  <!-- Central faceted courtyard diamond -->
+  <path d="M16 12.6L19.6 16.2L16 19.8L12.4 16.2Z" fill="#b84a2a" />
+  <path d="M16 14.9L17.3 16.2L16 17.5L14.7 16.2Z" fill="#f5e6c8" />
+</svg>
