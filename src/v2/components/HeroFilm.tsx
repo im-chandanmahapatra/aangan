@@ -129,31 +129,6 @@ export function HeroFilm() {
     return () => observer.disconnect();
   }, []);
 
-  const toggle = () => {
-    const element = video.current;
-    if (!element || !filmAvailable) return;
-    if (element.paused) {
-      if (element.ended || element.currentTime >= FILM_TIMING.duration - 0.1) {
-        element.currentTime = 0;
-        previousPhase.current = "intro";
-        setPhase("intro");
-      }
-      element.play().catch(() => setPlaying(false));
-    } else {
-      element.pause();
-    }
-  };
-
-  const skip = () => {
-    const element = video.current;
-    if (!element) return;
-    element.pause();
-    element.currentTime = FILM_TIMING.duration - 0.08;
-    previousPhase.current = "settled";
-    setPhase("settled");
-    section.current?.style.setProperty("--film-progress", "1");
-  };
-
   return (
     <section
       ref={section}
@@ -338,43 +313,6 @@ export function HeroFilm() {
           </AnimatePresence>
         </div>
       </motion.div>
-
-      <div className="absolute inset-x-0 bottom-0 z-10">
-        <div className="v2-film-progress" aria-hidden="true">
-          <span />
-        </div>
-        <div className="v2-wrap flex items-end justify-between gap-6 py-5">
-          <p className="v2-caption max-w-[24rem]" style={{ color: "var(--on-dark-3)" }}>
-            Architectural visualisation · not footage of a listing
-          </p>
-          <div className="flex items-center gap-5">
-            {filmAvailable && phase !== "settled" && (
-              <button type="button" onClick={skip} className="v2-film-control">
-                Skip introduction
-              </button>
-            )}
-            {filmAvailable && (
-              <button
-                type="button"
-                onClick={toggle}
-                className="v2-film-control"
-                aria-label={playing ? "Pause architectural film" : "Play architectural film"}
-              >
-                {playing ? (
-                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-                    <path d="M2.5 1.5h2.2v9H2.5zM7.3 1.5h2.2v9H7.3z" fill="currentColor" />
-                  </svg>
-                ) : (
-                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-                    <path d="M2.5 1.2 10.5 6l-8 4.8z" fill="currentColor" />
-                  </svg>
-                )}
-                {playing ? "Pause" : phase === "settled" ? "Replay" : "Play"}
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
