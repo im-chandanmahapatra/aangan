@@ -101,19 +101,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#FAF7F2" },
-      { name: "twitter:title", content: "Aangan — Crafted Beyond Time." },
-      { name: "description", content: "STATIC PAGE OF AANGAN" },
-      { property: "og:description", content: "STATIC PAGE OF AANGAN" },
-      { name: "twitter:description", content: "STATIC PAGE OF AANGAN" },
+      {
+        name: "twitter:title",
+        content: "Aangan — Crafted Beyond Time.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "A small Indian architecture and interior studio. Private residences, built slowly.",
+      },
       {
         property: "og:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fedb742e-33e9-49de-9a8b-27e12c5b86d5/id-preview-6d5c1cea--57d34785-5d34-44a8-b780-a69df3d22bc0.lovable.app-1782929901764.png",
+        content: "https://aangan.studio/v2/film/aangan-film-poster.webp",
       },
       {
         name: "twitter:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fedb742e-33e9-49de-9a8b-27e12c5b86d5/id-preview-6d5c1cea--57d34785-5d34-44a8-b780-a69df3d22bc0.lovable.app-1782929901764.png",
+        content: "https://aangan.studio/v2/film/aangan-film-poster.webp",
       },
     ],
     links: [
@@ -138,10 +141,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Organization",
+          "@type": ["RealEstateAgent", "ArchitecturalDesignStudio"],
+          "@id": "https://aangan.studio/#org",
           name: "Aangan",
-          description: "An Indian architecture, interior and residential development studio.",
-          areaServed: ["Mumbai", "Bengaluru", "Goa", "Delhi NCR"],
+          alternateName: "Studio Aangan",
+          description:
+            "A small Indian architecture and interior studio building private residences slowly, materially, and by hand.",
+          url: "https://aangan.studio",
+          logo: "https://aangan.studio/favicon.svg",
+          image: "https://aangan.studio/v2/film/aangan-film-poster.webp",
+          email: "hello@aangan.studio",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Mumbai",
+            addressRegion: "Maharashtra",
+            addressCountry: "IN",
+          },
+          areaServed: [
+            { "@type": "City", name: "Mumbai" },
+            { "@type": "City", name: "Bhubaneswar" },
+            { "@type": "City", name: "Bengaluru" },
+            { "@type": "City", name: "Goa" },
+            { "@type": "City", name: "Delhi NCR" },
+          ],
+          knowsAbout: [
+            "Architecture",
+            "Interior design",
+            "Private residences",
+            "Landscape design",
+            "Renovation",
+          ],
+          foundingDate: "2011",
+          sameAs: [],
         }),
       },
     ],

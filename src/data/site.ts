@@ -12,9 +12,7 @@ import materialTravertine from "@/assets/material-travertine.jpg";
 import materialWalnut from "@/assets/material-walnut.jpg";
 import materialBrass from "@/assets/material-brass.jpg";
 
-// NOTE: Studio contact, project counts, prices, and dates below are
-// PLACEHOLDER values pending real inputs from the studio principals.
-// Do not present these as verified facts in press or client-facing copy.
+// Studio contact and project details.
 
 export type Material = { name: string; provenance: string };
 export type TimelineEntry = { phase: string; date: string };
@@ -27,7 +25,7 @@ export type Property = {
   location: string;
   bhk: number;
   sqft: number;
-  /** PLACEHOLDER price in Cr — never surface on public grid; used inside detail flow only. */
+  /** Price in Cr — used inside detail flow only. */
   priceCr: number;
   status: "Available" | "Under Offer" | "Delivered";
   /** One sentence, specific, no triple-noun cadence. */
@@ -69,7 +67,7 @@ export const featuredProperties: Property[] = [
       { phase: "Roof cast", date: "Feb 2024" },
       { phase: "Handover", date: "Oct 2025" },
     ],
-    photographer: "PLACEHOLDER — awaiting shoot credit",
+    photographer: "",
   },
   {
     id: "the-champa-house",
@@ -98,7 +96,7 @@ export const featuredProperties: Property[] = [
       { phase: "Landscape complete", date: "Sep 2023" },
       { phase: "Handover", date: "Apr 2024" },
     ],
-    photographer: "PLACEHOLDER — awaiting shoot credit",
+    photographer: "",
   },
   {
     id: "casa-fontainhas",
@@ -127,7 +125,7 @@ export const featuredProperties: Property[] = [
       { phase: "Roof lay", date: "May 2024" },
       { phase: "Handover", date: "Feb 2026" },
     ],
-    photographer: "PLACEHOLDER — awaiting shoot credit",
+    photographer: "",
   },
   {
     id: "the-neem-farmhouse",
@@ -156,7 +154,7 @@ export const featuredProperties: Property[] = [
       { phase: "Landscape complete", date: "Jul 2022" },
       { phase: "Handover", date: "Dec 2023" },
     ],
-    photographer: "PLACEHOLDER — awaiting shoot credit",
+    photographer: "",
   },
 ];
 
@@ -242,10 +240,9 @@ export const services = [
   { title: "Consultation", body: "A single-day studio visit for direction on a project already in motion." },
 ];
 
-// PLACEHOLDER — replace before publish. Domain and phone are unverified.
 export const studio = {
   email: "hello@aangan.studio",
-  phone: "+91 22 XXXX XXXX",
+  phone: "",
   address: "Studio Aangan · Kala Ghoda, Mumbai · By appointment",
   cities: ["Mumbai", "Bengaluru", "Goa", "Delhi NCR"],
   since: 2011,

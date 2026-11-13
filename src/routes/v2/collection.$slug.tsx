@@ -42,8 +42,15 @@ export const Route = createFileRoute("/v2/collection/$slug")({
         { name: "description", content: l?.headline ?? "A listing from the Aangan collection." },
         { property: "og:title", content: title },
         { property: "og:description", content: l?.headline ?? "" },
+        { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: l?.headline ?? "" },
+        { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
         ...(l?.demo ? [{ name: "robots", content: "noindex" }] : []),
       ],
+      links: l
+        ? [{ rel: "canonical", href: `https://aangan.studio/v2/collection/${l.slug}` }]
+        : [],
     };
   },
   notFoundComponent: () => (

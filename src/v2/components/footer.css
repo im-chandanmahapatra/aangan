@@ -1,0 +1,445 @@
+/* ==========================================================================
+   AANGAN EDITORIAL FOOTER — PIXEL-PERFECT CINEMATIC REPRODUCTION
+   Colors:
+     Forest black:   #0B1510
+     Deep green:     #101A14
+     Warm ivory:     #EEE6D7
+     Laterite red:   #A34B2B
+     Muted brass:    #B89B62
+     Fine divider:   rgba(184, 155, 98, 0.42)
+   ========================================================================== */
+
+.aangan-footer {
+  position: relative;
+  width: 100%;
+  background-color: #0b1510;
+  color: #eee6d7;
+  overflow: hidden;
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 1 — CINEMATIC CTA (~71.3% of 941px = ~671px on desktop)
+   -------------------------------------------------------------------------- */
+.footer-cta-section {
+  position: relative;
+  width: 100%;
+  min-height: clamp(520px, 71.3vh, 672px);
+  background-color: #0b1510;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Background image & gradient overlay */
+.footer-cta-bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer-cta-bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+/* Gradient overlay to seamlessly fade left side into solid forest black */
+.footer-cta-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #0b1510 0%,
+    #0b1510 26%,
+    rgba(11, 21, 16, 0.94) 36%,
+    rgba(11, 21, 16, 0.65) 48%,
+    rgba(11, 21, 16, 0.2) 62%,
+    transparent 74%
+  );
+}
+
+/* Topographic decorative lines overlay in bottom left */
+.footer-topography {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: clamp(280px, 32vw, 540px);
+  height: auto;
+  pointer-events: none;
+  opacity: 0.32;
+  z-index: 2;
+}
+
+/* Section 1 Main Content Layout */
+.footer-cta-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1672px;
+  margin: 0 auto;
+  padding: clamp(36px, 5.8vw, 58px) clamp(24px, 3.9vw, 65px) clamp(24px, 3.5vw, 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.footer-cta-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* AANGAN Wordmark */
+.footer-wordmark {
+  font-family: var(--f-display, "Instrument Serif", Georgia, serif);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  color: #eee6d7;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+  padding-left: 0.05em; /* optical balance */
+}
+
+/* Small brass horizontal stroke */
+.footer-brass-stroke {
+  width: 39px;
+  height: 1.5px;
+  background-color: #b89b62;
+  margin-top: clamp(14px, 1.8vw, 22px);
+  margin-bottom: clamp(14px, 1.8vw, 22px);
+}
+
+/* PRIVATE VIEWINGS · BY APPOINTMENT */
+.footer-eyebrow {
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  font-size: clamp(11.5px, 0.9vw, 14.5px);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  color: #b89b62;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin: 0 0 clamp(24px, 2.8vw, 36px) 0;
+}
+
+/* Main Two-Line Headline */
+.footer-headline {
+  font-family: var(--f-display, "Instrument Serif", Georgia, serif);
+  font-size: clamp(38px, 4.3vw, 72px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: #eee6d7;
+  margin: 0 0 clamp(28px, 3.2vw, 42px) 0;
+  max-width: 14ch;
+}
+
+.footer-headline span {
+  display: block;
+}
+
+/* Actions Group */
+.footer-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(18px, 2vw, 26px);
+}
+
+/* Primary CTA Button: laterite-red, no rounded corners */
+.footer-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: clamp(290px, 29vw, 488px);
+  height: clamp(48px, 4.2vw, 58px);
+  padding: 0 clamp(20px, 2.2vw, 32px);
+  background-color: #a34b2b;
+  color: #eee6d7;
+  border-radius: 0px !important;
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  font-size: clamp(13px, 1.05vw, 16.5px);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.25s ease,
+    filter 0.25s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.footer-btn-primary:hover {
+  background-color: #b55431;
+  color: #ffffff;
+}
+
+.footer-btn-primary:active {
+  transform: translateY(1px);
+}
+
+.footer-btn-arrow {
+  display: inline-block;
+  margin-left: 12px;
+  transition: transform 0.25s ease;
+}
+
+.footer-btn-primary:hover .footer-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Secondary CTA: Understated text link with thin brass underline */
+.footer-link-secondary {
+  display: inline-block;
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: #eee6d7;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(184, 155, 98, 0.65);
+  padding-bottom: 5px;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.footer-link-secondary:hover {
+  color: #b89b62;
+  border-bottom-color: #b89b62;
+}
+
+/* Coordinate display */
+.footer-coordinates {
+  margin-top: clamp(36px, 4vw, 54px);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  font-size: clamp(11px, 0.85vw, 13.5px);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: #b89b62;
+  user-select: text;
+}
+
+.footer-coord-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 2 — INFORMATION BAND (~28.7% of 941px = ~270px on desktop)
+   -------------------------------------------------------------------------- */
+.footer-info-band {
+  position: relative;
+  width: 100%;
+  background-color: #0b1510;
+  border-top: 1px solid rgba(184, 155, 98, 0.42);
+  z-index: 3;
+}
+
+.footer-info-inner {
+  width: 100%;
+  max-width: 1672px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 3.9vw, 65px);
+  box-sizing: border-box;
+}
+
+/* Three columns with thin vertical brass rules */
+.footer-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) minmax(0, 1.05fr);
+  width: 100%;
+  min-height: clamp(120px, 12vw, 160px);
+}
+
+.footer-col {
+  padding-top: clamp(24px, 2.4vw, 36px);
+  padding-bottom: clamp(24px, 2.4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.footer-col-1 {
+  padding-right: clamp(24px, 2.8vw, 48px);
+  border-right: 1px solid rgba(184, 155, 98, 0.42);
+}
+
+.footer-col-2 {
+  padding-left: clamp(24px, 2.8vw, 48px);
+  padding-right: clamp(24px, 2.8vw, 48px);
+  border-right: 1px solid rgba(184, 155, 98, 0.42);
+}
+
+.footer-col-3 {
+  padding-left: clamp(24px, 2.8vw, 48px);
+}
+
+.footer-col-header {
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  font-size: clamp(11px, 0.8vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  color: #b89b62;
+  text-transform: uppercase;
+  margin: 0 0 clamp(12px, 1.3vw, 20px) 0;
+  line-height: 1;
+}
+
+.footer-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: clamp(16px, 2vw, 36px);
+}
+
+.footer-nav-link {
+  font-family: var(--f-display, "Instrument Serif", Georgia, serif);
+  font-size: clamp(18px, 1.45vw, 24px);
+  font-weight: 400;
+  color: #eee6d7;
+  text-decoration: none;
+  line-height: 1.2;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.footer-nav-link:hover {
+  color: #b89b62;
+}
+
+/* Thin horizontal divider below columns */
+.footer-divider-rule {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(184, 155, 98, 0.42);
+}
+
+/* Bottom Bar: Land · House · Place on left; Copyright + links on right */
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: clamp(60px, 6.5vw, 108px);
+  box-sizing: border-box;
+}
+
+.footer-bottom-brand-phrase {
+  font-family: var(--f-display, "Instrument Serif", Georgia, serif);
+  font-style: italic;
+  font-size: clamp(18px, 1.45vw, 24px);
+  font-weight: 400;
+  color: #eee6d7;
+  margin: 0;
+  line-height: 1;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(16px, 1.9vw, 34px);
+}
+
+.footer-bottom-item {
+  font-family: var(--f-body, "Manrope", system-ui, sans-serif);
+  font-size: clamp(11.5px, 0.85vw, 14px);
+  font-weight: 400;
+  color: #c5beb3;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+a.footer-bottom-item:hover {
+  color: #eee6d7;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN: TABLET & MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .footer-columns {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .footer-col {
+    padding: 24px 0;
+    border-right: none;
+  }
+
+  .footer-col-1,
+  .footer-col-2 {
+    border-bottom: 1px solid rgba(184, 155, 98, 0.25);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .footer-col-3 {
+    padding-left: 0;
+  }
+
+  .footer-btn-primary {
+    width: 100%;
+    max-width: 440px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-cta-section {
+    min-height: auto;
+  }
+
+  .footer-cta-content {
+    padding: 40px 20px 32px;
+  }
+
+  .footer-headline {
+    font-size: 34px;
+    max-width: 100%;
+  }
+
+  .footer-btn-primary {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 0;
+    gap: 18px;
+    min-height: auto;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}

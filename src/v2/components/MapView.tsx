@@ -1,127 +1,180 @@
+import "leaflet/dist/leaflet.css";
+
 import { useEffect, useRef, useState } from "react";
-import type { Listing } from "../data";
+import type { Listing } from "@/v2/data";
 
 type Props = {
   listings: Listing[];
+  zoom?: number;
   activeSlug?: string | null;
   onSelect?: (slug: string) => void;
-  zoom?: number;
   className?: string;
-  label: string;
+  label?: string;
 };
 
+type MapStatus = "loading" | "ready" | "error";
+
+function osmUrl([lat, lng]: [number, number], zoom: number) {
+  return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=${zoom}/${lat}/${lng}`;
+}
+
 /**
- * Leaflet + OpenStreetMap tiles, loaded only in the browser and only when the
- * map is rendered (keeps Leaflet out of SSR and the initial bundle).
- * Pins are locality-level approximations, never addresses.
+ * Client-only Leaflet map. Listing coordinates are intentionally locality-level
+ * approximations; the exact address is shared only for a confirmed visit.
  */
-export function MapView({ listings, activeSlug, onSelect, zoom, className = "", label }: Props) {
-  const el = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<import("leaflet").Map | null>(null);
-  const markers = useRef(new Map<string, import("leaflet").Marker>());
-  const [state, setState] = useState<"loading" | "ready" | "error">("loading");
-  const selectRef = useRef(onSelect);
-  selectRef.current = onSelect;
-
-  const key = listings.map((l) => l.slug).join("|");
+export function MapView({
+  listings,
+  zoom = 13,
+  activeSlug = null,
+  onSelect,
+  className = "",
+  label,
+}: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const onSelectRef = useRef(onSelect);
+  const [status, setStatus] = useState<MapStatus>("loading");
 
   useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const [{ default: L }] = await Promise.all([
-          import("leaflet"),
-          import("leaflet/dist/leaflet.css"),
-        ]);
-        if (cancelled || !el.current) return;
-        if (!mapRef.current) {
-          mapRef.current = L.map(el.current, {
-            scrollWheelZoom: false,
-            zoomControl: true,
-            attributionControl: true,
-          });
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 18,
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          }).addTo(mapRef.current);
-        }
-        const map = mapRef.current;
-        markers.current.forEach((m) => m.remove());
-        markers.current.clear();
-        listings.forEach((l, i) => {
-          const icon = L.divIcon({
-            className: "",
-            html: `<span class="v2-pin" data-kind="${l.kind}">${i + 1}</span>`,
-            iconSize: [30, 30],
-            iconAnchor: [15, 15],
-          });
-          const m = L.marker(l.coords, {
-            icon,
-            title: `${l.name}, ${l.locality}`,
-            keyboard: true,
-            riseOnHover: true,
-          })
-            .addTo(map)
-            .bindTooltip(`${l.name} · ${l.city}`, { direction: "top", offset: [0, -14] });
-          m.on("click", () => selectRef.current?.(l.slug));
-          markers.current.set(l.slug, m);
+    onSelectRef.current = onSelect;
+  }, [onSelect]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || listings.length === 0) return;
+
+    let disposed = false;
+    let map: import("leaflet").Map | undefined;
+    let readyTimer: ReturnType<typeof setTimeout> | undefined;
+
+    setStatus("loading");
+
+    void import("leaflet")
+      .then((L) => {
+        if (disposed) return;
+
+        const centre = listings[0].coords;
+        map = L.map(container, {
+          center: centre,
+          zoom,
+          zoomControl: true,
+          scrollWheelZoom: false,
         });
-        if (listings.length === 1) {
-          map.setView(listings[0].coords, zoom ?? 13);
-        } else if (listings.length > 1) {
-          map.fitBounds(L.latLngBounds(listings.map((l) => l.coords)), {
-            padding: [48, 48],
-            maxZoom: 9,
-          });
-        } else {
-          map.setView([20.5, 77.5], 4);
+
+        const tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>',
+          maxZoom: 19,
+        }).addTo(map);
+
+        tiles.once("load", () => {
+          if (!disposed) setStatus("ready");
+        });
+
+        const bounds = L.latLngBounds([]);
+
+        listings.forEach((listing, index) => {
+          const pin = document.createElement("span");
+          pin.className = "v2-pin";
+          pin.dataset.kind = listing.kind;
+          pin.dataset.active = String(activeSlug === listing.slug || listings.length === 1);
+          pin.textContent = String(index + 1).padStart(2, "0");
+
+          const marker = L.marker(listing.coords, {
+            icon: L.divIcon({
+              className: "v2-pin-wrap",
+              html: pin,
+              iconSize: [30, 30],
+              iconAnchor: [15, 15],
+              popupAnchor: [0, -18],
+            }),
+            keyboard: true,
+            title: `${listing.name}, ${listing.locality}`,
+            alt: `Approximate location of ${listing.name}`,
+          }).addTo(map!);
+
+          const popup = document.createElement("div");
+          popup.className = "v2-map-popup";
+
+          const name = document.createElement("strong");
+          name.textContent = listing.name;
+          popup.appendChild(name);
+
+          const place = document.createElement("span");
+          place.textContent = `${listing.locality}, ${listing.city}`;
+          popup.appendChild(place);
+
+          marker.bindPopup(popup, { closeButton: false, offset: [0, -2] });
+          marker.on("click", () => onSelectRef.current?.(listing.slug));
+          bounds.extend(listing.coords);
+        });
+
+        if (listings.length > 1) {
+          map.fitBounds(bounds.pad(0.22), { maxZoom: zoom });
         }
-        setState("ready");
-      } catch (e) {
-        console.error("[v2 map]", e);
-        if (!cancelled) setState("error");
-      }
-    })();
+
+        // The map is mounted inside a tab panel. Invalidate after layout so
+        // Leaflet measures the now-visible panel rather than its hidden state.
+        requestAnimationFrame(() => map?.invalidateSize(false));
+
+        // Keep controls usable even when a tile response is slow.
+        readyTimer = setTimeout(() => {
+          if (!disposed) setStatus("ready");
+        }, 1800);
+      })
+      .catch((error) => {
+        console.error("Unable to initialise the location map", error);
+        if (!disposed) setStatus("error");
+      });
+
     return () => {
-      cancelled = true;
+      disposed = true;
+      if (readyTimer) clearTimeout(readyTimer);
+      map?.remove();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, zoom]);
+  }, [activeSlug, listings, zoom]);
 
-  useEffect(() => {
-    markers.current.forEach((m, slug) => {
-      const node = m.getElement()?.querySelector(".v2-pin");
-      if (node) node.setAttribute("data-active", slug === activeSlug ? "true" : "false");
-      if (slug === activeSlug) m.setZIndexOffset(1000);
-      else m.setZIndexOffset(0);
-    });
-  }, [activeSlug, state]);
-
-  useEffect(
-    () => () => {
-      mapRef.current?.remove();
-      mapRef.current = null;
-    },
-    [],
-  );
+  const first = listings[0];
 
   return (
-    <div className={`relative ${className}`} style={{ background: "var(--plaster)" }}>
-      <div ref={el} className="absolute inset-0" role="region" aria-label={label} />
-      {state === "loading" && (
-        <div className="absolute inset-0 grid place-items-center v2-label" aria-live="polite">
-          Loading map…
+    <div className={`v2-map ${className}`} data-status={status}>
+      <div
+        ref={containerRef}
+        className="absolute inset-0"
+        role="region"
+        aria-label={label ?? "Interactive approximate location map"}
+      />
+
+      {status === "loading" && (
+        <div className="v2-map-state" aria-live="polite">
+          <span className="v2-map-loader" aria-hidden="true" />
+          <span className="v2-label">Drawing the locality map…</span>
         </div>
       )}
-      {state === "error" && (
-        <div
-          className="absolute inset-0 grid place-items-center p-6 text-center v2-body"
-          role="status"
-        >
-          The map couldn’t load. Localities:{" "}
-          {listings.map((l) => `${l.locality}, ${l.city}`).join(" · ")}
+
+      {status === "error" && first && (
+        <div className="v2-map-state v2-map-state--error" role="alert">
+          <p className="v2-label">The map could not be loaded</p>
+          <p className="v2-caption mt-2">You can still view the approximate locality.</p>
+          <a
+            className="v2-btn v2-btn--line mt-5"
+            href={osmUrl(first.coords, zoom)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open in OpenStreetMap
+          </a>
         </div>
+      )}
+
+      {status === "ready" && first && (
+        <a
+          className="v2-map-open v2-caption"
+          href={osmUrl(first.coords, zoom)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open larger map ↗
+        </a>
       )}
     </div>
   );

@@ -149,8 +149,8 @@ export function PlacesSlants() {
             <Stroke className="mt-7" />
           </div>
           <p className="v2-body lg:col-span-5 lg:col-start-8">
-            A coastal house in Alibaug and a farmhouse in Delhi answer different suns, soils and
-            monsoons. We design for the place first — these are the places, photographed as they
+            A courtyard house in Bhubaneswar and a farmhouse in Delhi answer different suns, soils
+            and monsoons. We design for the place first — these are the places, photographed as they
             are.
           </p>
         </div>

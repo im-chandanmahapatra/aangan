@@ -7,6 +7,7 @@ import { Lightbox } from "@/v2/components/Lightbox";
 import { motion } from "framer-motion";
 import { EASE } from "@/v2/motion";
 import { Arrow } from "@/v2/components/Logo";
+import { Breadcrumbs } from "@/v2/components/Breadcrumbs";
 
 export const Route = createFileRoute("/v2/interiors")({
   head: () => ({
@@ -17,7 +18,22 @@ export const Route = createFileRoute("/v2/interiors")({
         content:
           "Interior architecture, joinery and furnishing by Aangan. Rooms shaped by named materials and warm light.",
       },
+      { property: "og:title", content: "Interiors — interior architecture and furnishing · Aangan" },
+      {
+        property: "og:description",
+        content:
+          "Interior architecture, joinery and furnishing by Aangan. Rooms shaped by named materials and warm light.",
+      },
+      { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+      { name: "twitter:title", content: "Interiors · Aangan" },
+      {
+        name: "twitter:description",
+        content:
+          "Interior architecture, joinery and furnishing by Aangan.",
+      },
+      { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
     ],
+    links: [{ rel: "canonical", href: "https://aangan.studio/v2/interiors" }],
   }),
   component: Interiors,
 });
@@ -54,7 +70,8 @@ function Interiors() {
         />
         <div className="relative v2-wrap pb-14 md:pb-20 grid gap-8 lg:grid-cols-12 items-end">
           <div className="lg:col-span-8">
-            <p className="v2-label">Interiors</p>
+            <Breadcrumbs crumbs={[{ label: "Interiors" }]} dark />
+            <p className="v2-label mt-5">Interiors</p>
             <LineReveal
               as="h1"
               id="int-h"

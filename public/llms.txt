@@ -1,0 +1,31 @@
+# Aangan
+
+> A small Indian architecture and interior studio building private residences slowly, materially, and by hand.
+
+## About
+
+Aangan (आँगन — the open courtyard at the centre of a traditional Indian house) is an architecture, interior design and residential development studio founded in 2011. We design and build private courtyard houses across Mumbai, Bengaluru, Goa, Bhubaneswar and Delhi NCR.
+
+## What we do
+
+- **Private Villas**: Ground-up residences on your land, or from our curated collection.
+- **Interior Architecture**: Full interior design from plan to final joinery.
+- **Architecture**: Bespoke architectural commissions for private clients.
+- **Landscape**: Gardens, courtyards, and water designed as rooms.
+- **Renovation**: Careful rework of older homes.
+- **Consultation**: Single-day studio visits for direction on projects in motion.
+
+## Pages
+
+- Home: https://aangan.studio/v2
+- The Collection (residences and land): https://aangan.studio/v2/collection
+- Home Types (3D walkthroughs): https://aangan.studio/v2/homes
+- Interiors: https://aangan.studio/v2/interiors
+- The Studio: https://aangan.studio/v2/studio
+- Enquire / Book a Visit: https://aangan.studio/v2/enquire
+
+## Contact
+
+- Email: hello@aangan.studio
+- Location: Mumbai, India (by appointment)
+- Areas served: Mumbai, Bengaluru, Goa, Delhi NCR

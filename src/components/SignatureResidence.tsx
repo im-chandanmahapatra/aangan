@@ -67,7 +67,7 @@ export function SignatureResidence() {
             >
               <img
                 src={signatureImg}
-                alt="The Kohinoor House — a coastal villa in Alibaug, Maharashtra"
+                alt="The Kohinoor House — a residence in Bhubaneswar, Odisha"
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
@@ -82,14 +82,13 @@ export function SignatureResidence() {
             <h2 className="mt-6 display text-5xl md:text-6xl lg:text-7xl text-foreground leading-[0.98]">
               The Kohinoor House.
               <br />
-              <span className="italic font-normal text-muted-foreground/90">Alibaug.</span>
+              <span className="italic font-normal text-muted-foreground/90">Bhubaneswar.</span>
             </h2>
             <p className="mt-8 max-w-md text-[15px] leading-[1.75] text-muted-foreground">
-              A long, low villa set into a coastal casuarina grove twenty
-              minutes south of Mandwa jetty. Board-formed concrete cast on
-              site over eleven months; a still reflecting pool between two
-              wings; a verandah that runs the length of the sea elevation.
-              Designed over two years, built over three.
+              A long, low courtyard villa set into a mature tropical grove on the edge of
+              Bhubaneswar. Board-formed concrete and warm laterite cast on site over eleven months;
+              a still reflecting pool between two wings; a deep verandah that runs the length of the
+              garden elevation. Designed over two years, built over three.
             </p>
           </Reveal>
 
@@ -110,9 +109,7 @@ export function SignatureResidence() {
               <div>
                 <dt className="eyebrow">Price</dt>
                 {/* Signature Residence is the ONE place where price appears — deliberate. */}
-                <dd className="display text-3xl md:text-4xl mt-3 text-foreground">
-                  On Enquiry
-                </dd>
+                <dd className="display text-3xl md:text-4xl mt-3 text-foreground">On Enquiry</dd>
               </div>
             </dl>
           </Reveal>

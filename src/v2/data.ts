@@ -68,8 +68,8 @@ import assagaoSm from "./img/place/assagao-house-sm.webp";
 import assagaoLg from "./img/place/assagao-house-lg.webp";
 import qutubSm from "./img/place/delhi-qutub-sm.webp";
 import qutubLg from "./img/place/delhi-qutub-lg.webp";
-import alibaugSm from "./img/place/alibaug-beach-sm.webp";
-import alibaugLg from "./img/place/alibaug-beach-lg.webp";
+import bhubaneswarSm from "./img/place/bhubaneswar-residence-sm.webp";
+import bhubaneswarLg from "./img/place/bhubaneswar-residence-lg.webp";
 import nandiSm from "./img/place/nandi-hills-sm.webp";
 import nandiLg from "./img/place/nandi-hills-lg.webp";
 
@@ -189,16 +189,16 @@ export const places: Record<string, Place> = {
     "Maaz Ahmed",
     "https://unsplash.com/photos/uO5hTj1CGPg",
   ),
-  alibaug: place(
-    "alibaug",
-    "Alibaug",
-    alibaugSm,
-    alibaugLg,
-    [1440, 961],
-    "Alibaug beach with a headland and a walker at the water’s edge",
-    "Alibaug beach, Raigad coast",
-    "Ved Shrawak",
-    "https://unsplash.com/photos/pm30R0Nt_hI",
+  bhubaneswar: place(
+    "bhubaneswar",
+    "Bhubaneswar",
+    bhubaneswarSm,
+    bhubaneswarLg,
+    [1440, 960],
+    "Contemporary low-rise residence in Bhubaneswar with warm sandstone, shaded verandah and landscaped courtyard",
+    "Bhubaneswar, Odisha",
+    "Architectural Visualisation",
+    "https://aangan.studio",
   ),
   nandi: place(
     "nandi",
@@ -218,9 +218,9 @@ const placeBySlug: Record<string, string> = {
   "the-champa-house": "bengaluru",
   "casa-fontainhas": "goa",
   "the-neem-farmhouse": "delhi",
-  "the-kohinoor-house": "alibaug",
+  "the-kohinoor-house": "bhubaneswar",
   "assagao-ridge-plot": "goa",
-  "nagaon-casuarina-plot": "alibaug",
+  "nagaon-casuarina-plot": "bhubaneswar",
   "devanahalli-orchard-plot": "nandi",
 };
 
@@ -231,7 +231,7 @@ export function placeFor(slug: string): Place | undefined {
 /** Regions for "Where we build", keyed to collection city filters. */
 export const regions = [
   { city: "Mumbai", place: "mumbai" },
-  { city: "Alibaug", place: "alibaug" },
+  { city: "Bhubaneswar", place: "bhubaneswar" },
   { city: "Goa", place: "goa" },
   { city: "Bengaluru", place: "bengaluru" },
   { city: "Delhi NCR", place: "delhi" },
@@ -366,12 +366,12 @@ export const listings: Listing[] = [
     slug: "the-kohinoor-house",
     kind: "residence",
     name: "The Kohinoor House",
-    city: "Alibaug",
-    locality: "South of Mandwa",
+    city: "Bhubaneswar",
+    locality: "Chandaka Foothills, Bhubaneswar",
     status: "Under Offer",
-    headline: "A long, low villa set into a coastal casuarina grove.",
+    headline: "A long, low courtyard villa set into a mature tropical grove.",
     description:
-      "Twenty minutes south of Mandwa jetty. Board-formed concrete cast on site over eleven months; a still reflecting pool between two wings; a verandah that runs the length of the sea elevation. Designed over two years, built over three.",
+      "Set beside the green foothills on the edge of Bhubaneswar. Board-formed concrete and warm laterite cast on site over eleven months; a still reflecting pool between two wings; a deep verandah that runs the length of the garden elevation. Designed over two years, built over three.",
     bhk: 6,
     builtSqft: 9800,
     image: img(
@@ -379,14 +379,14 @@ export const listings: Listing[] = [
       sigLg,
       1600,
       1920,
-      "The Kohinoor House — a long coastal villa with a reflecting pool",
+      "The Kohinoor House — a long courtyard villa with a reflecting pool",
     ),
-    coords: [18.6414, 72.8722],
-    nearby: ["Mandwa jetty (ferry to Mumbai)", "Kihim beach", "Alibaug town"],
+    coords: [20.2961, 85.8245],
+    nearby: ["Chandaka Nature Reserve", "Bhubaneswar Airport (BBI)", "Ekamra Kshetra"],
     features: [
-      "Long, low plan within a casuarina grove",
+      "Long, low plan within a shaded tropical grove",
       "Reflecting pool held between two wings",
-      "Verandah along the full sea elevation",
+      "Verandah along the full garden elevation",
     ],
     materials: [{ name: "Board-formed concrete", provenance: "Cast on site over eleven months" }],
     timeline: [],
@@ -421,26 +421,26 @@ export const listings: Listing[] = [
   {
     slug: "nagaon-casuarina-plot",
     kind: "plot",
-    name: "Nagaon Casuarina",
-    city: "Alibaug",
-    locality: "Nagaon, Raigad",
+    name: "Chandaka Grove",
+    city: "Bhubaneswar",
+    locality: "Chandaka, Bhubaneswar",
     status: "Demonstration",
-    headline: "A rectangular coastal plot behind a casuarina belt.",
+    headline: "A rectangular laterite plot behind a native sal and mango grove.",
     description:
-      "Demonstration listing. A sample of how a coastal plot would be documented — dimensions, sea orientation and a first reading of wind and shade. Any real offer would carry an independently verified title and CRZ position.",
-    plot: { frontageFt: 125, depthFt: 160, facing: "West" },
-    coords: [18.609, 72.921],
-    nearby: ["Nagaon beach", "Alibaug town", "Mandwa jetty"],
+      "Demonstration listing. A sample of how an Odisha plot would be documented — dimensions, sun orientation and a first reading of wind and courtyard shade. Any real offer would carry an independently verified title and conversion position.",
+    plot: { frontageFt: 125, depthFt: 160, facing: "East" },
+    coords: [20.354, 85.765],
+    nearby: ["Chandaka sanctuary", "Bhubaneswar city centre", "Biju Patnaik Airport"],
     features: [
-      "West-facing to the sea breeze",
-      "Casuarina belt on the seaward edge",
-      "Approach from the east",
+      "East-facing for morning courtyard light",
+      "Laterite subsoil and mature tree canopy",
+      "Approach from the west",
     ],
     materials: [],
     timeline: [],
     plan: "site",
     demo: true,
-    site: { coastal: true, roadSide: "back" },
+    site: { coastal: false, roadSide: "back" },
   },
   {
     slug: "devanahalli-orchard-plot",

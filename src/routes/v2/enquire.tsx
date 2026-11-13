@@ -4,6 +4,7 @@ import { getListing, images, studio, type Listing } from "@/v2/data";
 import { Picture } from "@/v2/components/Picture";
 import { Item, LineReveal, Rise, Stagger, Stroke } from "@/v2/motion";
 import { EnquiryForm } from "@/v2/components/EnquiryForm";
+import { Breadcrumbs } from "@/v2/components/Breadcrumbs";
 
 const search = z.object({
   listing: z.string().optional().catch(undefined),
@@ -23,7 +24,22 @@ export const Route = createFileRoute("/v2/enquire")({
         content:
           "Request a private consultation or a site visit with the Aangan studio. A partner replies personally within two working days.",
       },
+      { property: "og:title", content: "Book a consultation or site visit · Aangan" },
+      {
+        property: "og:description",
+        content:
+          "Request a private consultation or a site visit with the Aangan studio.",
+      },
+      { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+      { name: "twitter:title", content: "Book a consultation · Aangan" },
+      {
+        name: "twitter:description",
+        content:
+          "Request a private consultation or a site visit with the Aangan studio.",
+      },
+      { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
     ],
+    links: [{ rel: "canonical", href: "https://aangan.studio/v2/enquire" }],
   }),
   component: Enquire,
 });
@@ -48,7 +64,8 @@ function Enquire() {
           }}
         />
         <div className="relative px-[var(--gutter)] lg:pl-[max(var(--gutter),calc((100vw-1440px)/2+var(--gutter)))] lg:pr-12 pt-[calc(var(--nav-h)+clamp(2.5rem,6vw,5rem))] pb-16">
-          <p className="v2-label">A private visit</p>
+          <Breadcrumbs crumbs={[{ label: "Enquire" }]} dark />
+          <p className="v2-label mt-5">A private visit</p>
           <LineReveal
             as="h1"
             id="enq-h"

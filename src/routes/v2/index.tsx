@@ -9,7 +9,6 @@ import {
   materialLibrary,
   processSteps,
   regions,
-  studio,
 } from "@/v2/data";
 import { Picture } from "@/v2/components/Picture";
 import { Arrow } from "@/v2/components/Logo";
@@ -35,16 +34,29 @@ export const Route = createFileRoute("/v2/")({
       {
         name: "description",
         content:
-          "Aangan designs, builds and furnishes private courtyard houses across Mumbai, Alibaug, Goa, Bengaluru and Delhi NCR. Walk a house, study our drawings, and arrange a private visit.",
+          "Aangan designs, builds and furnishes private courtyard houses across Mumbai, Bhubaneswar, Goa, Bengaluru and Delhi NCR. Walk a house, study our drawings, and arrange a private visit.",
       },
       { property: "og:title", content: "Aangan — Residences, land and interiors" },
       {
         property: "og:description",
         content: "Private residences, land and interiors by the Aangan studio.",
       },
-      { property: "og:image", content: "/v2/film/aangan-film-poster.webp" },
+      { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+      { name: "twitter:title", content: "Aangan — Residences, land and interiors" },
+      {
+        name: "twitter:description",
+        content: "Private residences, land and interiors by the Aangan studio.",
+      },
+      { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
     ],
-    links: [{ rel: "preload", as: "image", href: "/v2/film/aangan-film-poster.webp" }],
+    links: [
+      { rel: "canonical", href: "https://aangan.studio/v2" },
+      {
+        rel: "preload",
+        as: "image",
+        href: "https://aangan.studio/v2/film/aangan-film-poster.webp",
+      },
+    ],
   }),
   component: Home,
 });
@@ -247,59 +259,6 @@ function Home() {
 
       {/* Process */}
       <ProcessBand />
-
-      {/* Closing */}
-      <section
-        className="relative overflow-hidden"
-        aria-labelledby="cta-h"
-        style={{ color: "var(--on-dark)" }}
-      >
-        <Parallax className="!absolute inset-0" strength={0.12}>
-          <div className="absolute inset-0 v2-media v2-grain">
-            <Picture image={materialLibrary[0].image} sizes="100vw" />
-          </div>
-        </Parallax>
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgb(60 22 10 / 0.35) 0%, rgb(40 15 8 / 0.82) 50%, rgb(30 12 6 / 0.92) 100%)",
-          }}
-        />
-        <div className="relative v2-wrap py-28 md:py-40 grid lg:grid-cols-12">
-          <div className="lg:col-span-7 lg:col-start-6">
-            <p className="v2-label" style={{ color: "var(--on-dark-2)" }}>
-              A private visit
-            </p>
-            <LineReveal
-              id="cta-h"
-              className="v2-d1 mt-5"
-              lines={["Walk it once.", "You will know."]}
-            />
-            <Stroke className="mt-8" />
-            <Rise delay={0.2}>
-              <p className="v2-lead mt-8" style={{ color: "var(--on-dark-2)" }}>
-                A partner walks the house or land with you — the light, the approach, the
-                neighbours, the documents. We take on a small number of houses each year.
-              </p>
-            </Rise>
-            <Rise delay={0.3} className="mt-10 flex flex-wrap gap-3">
-              <Link to="/v2/enquire" search={{ visit: true }} className="v2-btn v2-btn--primary">
-                Arrange a private walk <Arrow />
-              </Link>
-              <Link to="/v2/enquire" search={{ interest: "land" }} className="v2-btn v2-btn--ghost">
-                Ask for the complete dossier <Arrow />
-              </Link>
-            </Rise>
-            <p className="mt-8 text-[0.9rem]" style={{ color: "var(--on-dark-2)" }}>
-              Or write to{" "}
-              <a href={`mailto:${studio.email}`} className="v2-link">
-                {studio.email}
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

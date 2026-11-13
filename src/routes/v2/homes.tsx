@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { HomeExplorer } from "@/v2/home/HomeExplorer";
 import { Threshold } from "@/v2/home/Threshold";
-import { FloorPlan2D } from "@/v2/home/FloorPlan2D";
+const FloorPlan2D = lazy(() =>
+  import("@/v2/home/FloorPlan2D").then((m) => ({ default: m.FloorPlan2D })),
+);
 import {
   carpetArea,
   homePlans,
@@ -11,6 +13,7 @@ import {
 } from "@/v2/home/plans";
 import { LineReveal, Rise, Stagger, Item, Stroke } from "@/v2/motion";
 import { images } from "@/v2/data";
+import { Breadcrumbs } from "@/v2/components/Breadcrumbs";
 
 export const Route = createFileRoute("/v2/homes")({
   component: HomesPage,
@@ -22,7 +25,22 @@ export const Route = createFileRoute("/v2/homes")({
         content:
           "Four demonstration layouts — 1, 1.5, 2 and 3 BHK — drawn to show how Aangan organises a home of each size. Walk through each one in 3D.",
       },
+      { property: "og:title", content: "Home types — Aangan" },
+      {
+        property: "og:description",
+        content:
+          "Four demonstration layouts drawn to show how Aangan organises a home of each size.",
+      },
+      { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+      { name: "twitter:title", content: "Home types — Aangan" },
+      {
+        name: "twitter:description",
+        content:
+          "Four demonstration layouts drawn to show how Aangan organises a home of each size.",
+      },
+      { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
     ],
+    links: [{ rel: "canonical", href: "https://aangan.studio/v2/homes" }],
   }),
 });
 
@@ -62,8 +80,9 @@ function HomesPage() {
           className="v2-wrap relative"
           style={{ paddingTop: "calc(var(--nav-h) + 5.5rem)", paddingBottom: "4.5rem" }}
         >
+          <Breadcrumbs crumbs={[{ label: "Home types" }]} dark />
           <Rise>
-            <p className="v2-label" style={{ color: "var(--brass)" }}>
+            <p className="v2-label mt-5" style={{ color: "var(--brass)" }}>
               Home types
             </p>
           </Rise>
@@ -120,7 +139,9 @@ function HomesPage() {
                     className="p-4 border"
                     style={{ borderColor: "var(--line)", background: "var(--ivory)" }}
                   >
-                    <FloorPlan2D plan={p} showLabels={false} />
+                    <Suspense fallback={<div className="aspect-square" />}>
+                      <FloorPlan2D plan={p} showLabels={false} />
+                    </Suspense>
                   </div>
                   <p className="v2-label mt-5" style={{ color: "var(--terracotta)" }}>
                     {p.config}

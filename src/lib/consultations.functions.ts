@@ -14,7 +14,7 @@ export const consultationSchema = z.object({
 export type ConsultationInput = z.infer<typeof consultationSchema>;
 
 export const submitConsultation = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => consultationSchema.parse(data))
+  .validator(consultationSchema)
   .handler(async ({ data }) => {
     const url = process.env.SUPABASE_URL;
     const key = process.env.SUPABASE_PUBLISHABLE_KEY;

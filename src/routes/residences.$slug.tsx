@@ -203,9 +203,11 @@ function ResidenceDetail() {
                 ))}
               </ol>
             </Reveal>
-            <p className="mt-10 text-xs text-muted-foreground italic">
-              Photography · {p.photographer}
-            </p>
+            {p.photographer && (
+              <p className="mt-10 text-xs text-muted-foreground italic">
+                Photography · {p.photographer}
+              </p>
+            )}
           </div>
         </section>
 

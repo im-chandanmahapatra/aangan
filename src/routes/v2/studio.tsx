@@ -4,6 +4,7 @@ import { images, processSteps, services, studio } from "@/v2/data";
 import { Picture } from "@/v2/components/Picture";
 import { SunStudy } from "@/v2/components/SunStudy";
 import { Arrow } from "@/v2/components/Logo";
+import { Breadcrumbs } from "@/v2/components/Breadcrumbs";
 
 export const Route = createFileRoute("/v2/studio")({
   head: () => ({
@@ -13,6 +14,64 @@ export const Route = createFileRoute("/v2/studio")({
         name: "description",
         content:
           "Aangan is a small architecture, interior and residential studio. How we work, what we offer, and how to begin.",
+      },
+      { property: "og:title", content: "The studio — how Aangan designs and builds" },
+      {
+        property: "og:description",
+        content:
+          "Aangan is a small architecture, interior and residential studio. How we work, what we offer, and how to begin.",
+      },
+      { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+      { name: "twitter:title", content: "The studio · Aangan" },
+      {
+        name: "twitter:description",
+        content:
+          "How Aangan designs and builds private residences across India.",
+      },
+      { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+    ],
+    links: [{ rel: "canonical", href: "https://aangan.studio/v2/studio" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "Do you build on land I already own?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes — most of our houses are built on the client's own land. We begin with a site study before any drawing.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Why are prices not published?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Each house and plot is priced with its documents, plans and specification. We share all of it together, in writing, after a first conversation.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How do you handle due diligence on land?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "We share what we know about a site, and we ask that title, zoning and approvals are verified by your own advocate before any offer.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How long does a house take?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Our residences have typically taken several years from commission to handover. We give a realistic programme after the site study.",
+              },
+            },
+          ],
+        }),
       },
     ],
   }),
@@ -58,7 +117,8 @@ function Studio() {
           }}
         />
         <div className="relative v2-wrap pb-14 md:pb-20">
-          <p className="v2-label">The studio · since {studio.since}</p>
+          <Breadcrumbs crumbs={[{ label: "The studio" }]} dark />
+          <p className="v2-label mt-5">The studio · since {studio.since}</p>
           <LineReveal
             as="h1"
             id="studio-h"

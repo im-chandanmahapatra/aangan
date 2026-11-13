@@ -8,6 +8,7 @@ import { LandFolio } from "@/v2/components/LandFolio";
 import { Picture } from "@/v2/components/Picture";
 import { useShortlist } from "@/v2/shortlist";
 import { Arrow } from "@/v2/components/Logo";
+import { Breadcrumbs } from "@/v2/components/Breadcrumbs";
 import { EASE, LineReveal, Stroke } from "@/v2/motion";
 
 const MapView = lazy(() => import("@/v2/components/MapView").then((m) => ({ default: m.MapView })));
@@ -30,9 +31,24 @@ export const Route = createFileRoute("/v2/collection/")({
       {
         name: "description",
         content:
-          "Browse Aangan residences and land across Mumbai, Bengaluru, Goa, Alibaug and Delhi NCR. Filter by type, city, rooms and size.",
+          "Browse Aangan residences and land across Mumbai, Bengaluru, Goa, Bhubaneswar and Delhi NCR. Filter by type, city, rooms and size.",
       },
+      { property: "og:title", content: "The collection — residences and land · Aangan" },
+      {
+        property: "og:description",
+        content:
+          "Browse Aangan residences and land across Mumbai, Bengaluru, Goa, Bhubaneswar and Delhi NCR.",
+      },
+      { property: "og:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
+      { name: "twitter:title", content: "The collection — residences and land · Aangan" },
+      {
+        name: "twitter:description",
+        content:
+          "Browse Aangan residences and land across Mumbai, Bengaluru, Goa, Bhubaneswar and Delhi NCR.",
+      },
+      { name: "twitter:image", content: "https://aangan.studio/v2/film/aangan-film-poster.webp" },
     ],
+    links: [{ rel: "canonical", href: "https://aangan.studio/v2/collection" }],
   }),
   component: Collection,
 });
@@ -72,7 +88,7 @@ function Collection() {
   const active = [s.kind, s.city, s.status, s.bhk].filter(Boolean).length;
   const countFor = (patch: Partial<Search>) => apply({ ...s, ...patch }).length;
   const h = heading[s.kind ?? "all"];
-  const bg = s.kind === "plot" ? places.nandi : places.alibaug;
+  const bg = s.kind === "plot" ? places.nandi : places.bhubaneswar;
 
   return (
     <>
@@ -88,7 +104,8 @@ function Collection() {
           }}
         />
         <div className="relative v2-wrap pt-[calc(var(--nav-h)+clamp(3rem,7vw,6rem))] pb-14 md:pb-20">
-          <div className="flex flex-wrap items-end justify-between gap-8">
+          <Breadcrumbs crumbs={[{ label: "The collection" }]} dark />
+          <div className="mt-5 flex flex-wrap items-end justify-between gap-8">
             <div>
               <p className="v2-label">The collection</p>
               <LineReveal
