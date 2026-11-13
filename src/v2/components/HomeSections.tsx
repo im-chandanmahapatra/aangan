@@ -12,7 +12,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { fmt, listings, places, plotArea, regions, type Img, type Listing } from "../data";
 import { EASE, Item, LineReveal, Stagger, Stroke } from "../motion";
 import { Picture } from "./Picture";
-import { PlaceCredit } from "./PlaceFigure";
 import { StatusTag } from "./ListingCard";
 import { SitePlan } from "./Drawings";
 import { Arrow } from "./Logo";
@@ -197,21 +196,6 @@ export function PlacesSlants() {
             </Link>
           );
         })}
-      </div>
-      <div className="v2-forest">
-        <p
-          className="v2-wrap py-3 flex flex-wrap gap-x-5 gap-y-1"
-          style={{ color: "var(--on-dark-3)" }}
-        >
-          <span className="v2-caption">Area photographs, not listings:</span>
-          {regions.map((r) => (
-            <PlaceCredit
-              key={r.city}
-              place={places[r.place]}
-              className="!text-[color:var(--on-dark-3)]"
-            />
-          ))}
-        </p>
       </div>
     </section>
   );
